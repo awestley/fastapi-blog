@@ -9,7 +9,7 @@ A simple, easy-to-use blog application built with FastAPI.
 - 📱 Responsive design
 - 🌙 Dark mode
 - 🎯 Overloadable templates
-- 📚 [Live, working configuration examples](https://github.com/pydanny/fastapi-blog/tree/main/tests/examples)
+- 📚 [Live, working configuration examples](https://github.com/awestley/fastapi-blog/tree/main/tests/examples)
 - 🔍 SEO-friendly
 - 🗺️ Sitemap generation
 - 🐳 Docker support
@@ -61,7 +61,7 @@ Exciting times in the world of fastapi-blog are ahead!
 
 ## This is a markdown header
 
-And this is a markdown paragraph with a [link](https://github.com/pydanny/fastapi-blog).
+And this is a markdown paragraph with a [link](https://github.com/awestley/fastapi-blog).
 ```
 
 4. Add the first page
@@ -254,18 +254,15 @@ I'm probably best known as "[pydanny](https://www.google.com/search?q=pydanny)",
 
 ```bash
 # Clone the repository
-git clone https://github.com/pydanny/fastapi-blog.git
+git clone https://github.com/awestley/fastapi-blog.git
 cd fastapi-blog
 
 # Create and activate virtual environment
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install uv for faster dependency management
-pip install uv
-
-# Install the project in development mode
-uv pip install -e '.[dev]'
+# Install the project in development mode (this handles uv installation automatically)
+make install
 
 # Run the example blog
 make run
@@ -292,7 +289,7 @@ docker run -d -p 8000:8000 fastapi-blog
 Or using a prebuilt Docker image from GitHub Container Registry:
 
 ```bash
-docker run -d -p 8000:8000 ghcr.io/aroygreenfeld/fastapi-blog:latest
+docker run -d -p 8000:8000 ghcr.io/awestley/fastapi-blog:latest
 ```
 
 This is if you just want to run the application without building it yourself.

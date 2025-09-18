@@ -29,7 +29,10 @@ ENV PORT=8000
 # Expose the port the app runs on
 EXPOSE 8000
 
+# Change to the examples directory for running the app
+WORKDIR /app/tests/examples
+
 # Run the application
 # RUN make run
 # CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT}
-CMD uvicorn tests.example.main:app --host 0.0.0.0 --port ${PORT}
+CMD ["uvicorn", "defaults:app", "--host", "0.0.0.0", "--port", "8000"]

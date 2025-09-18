@@ -9,7 +9,11 @@ tag:
 
 install:
 	pip install uv
-	uv pip install -e '.[dev]'
+	if [ -n "$$VIRTUAL_ENV" ] || [ -f "pyvenv.cfg" ]; then \
+		uv pip install -e '.[dev]'; \
+	else \
+		uv pip install --system -e '.[dev]'; \
+	fi
 
 all:
 	make lint
