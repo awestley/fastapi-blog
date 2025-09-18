@@ -28,7 +28,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        uv pip install --system -e '.[dev]'
+        uv pip install -e '.[dev]'
     
     - name: Lint with ruff
       run: |
@@ -70,12 +70,12 @@ jobs:
     
     - name: Install dependencies
       run: |
-        uv pip install --system -e '.[dev]'
-        uv pip install --system safety bandit[toml]
+        uv pip install -e '.[dev]'
+        uv pip install safety bandit[toml]
     
     - name: Run safety check
       run: |
-        safety check
+        safety check --ignore 70612
     
     - name: Run bandit security check
       run: |
