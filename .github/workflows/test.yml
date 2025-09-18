@@ -19,7 +19,7 @@
               version: "latest"
           - name: Install dependencies
             run: |
-              uv pip install -e '.[dev]'
+              uv pip install --system -e '.[dev]'
           - name: Lint with ruff
             run: |
                 # stop the build if there are linting errors
