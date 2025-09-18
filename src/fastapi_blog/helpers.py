@@ -1,7 +1,8 @@
 import functools
 import pathlib
+from typing import Any
 
-import markdown as md  #  type: ignore[import-untyped]
+import markdown as md  #  type: ignore[import-untyped]
 import yaml
 from pymdownx import emoji  # type: ignore
 
@@ -48,7 +49,7 @@ extensions = [
     "pymdownx.saneheaders",
 ]
 
-extension_configs = {
+extension_configs: dict[str, dict[str, Any]] = {
     "markdown.extensions.toc": {
         "permalink": True,
         "permalink_leading": True,

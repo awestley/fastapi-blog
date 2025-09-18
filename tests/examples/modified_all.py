@@ -1,6 +1,7 @@
-import fastapi_blog
 import jinja2
 from fastapi import FastAPI
+
+import fastapi_blog
 
 
 prefix = "content"

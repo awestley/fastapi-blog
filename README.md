@@ -4,15 +4,19 @@ A simple, easy-to-use blog application built with FastAPI.
 
 ## Features
 
-- Write blog posts in Markdown
-- Syntax highlighting for code blocks
-- Responsive design
-- Dark mode
-- Overloadable templates
-- [Live, working configuration examples](https://github.com/pydanny/fastapi-blog/tree/main/tests/examples)
-- SEO-friendly
-- Sitemap
-- Docker support
+- 📝 Write blog posts in Markdown
+- 🎨 Syntax highlighting for code blocks
+- 📱 Responsive design
+- 🌙 Dark mode
+- 🎯 Overloadable templates
+- 📚 [Live, working configuration examples](https://github.com/pydanny/fastapi-blog/tree/main/tests/examples)
+- 🔍 SEO-friendly
+- 🗺️ Sitemap generation
+- 🐳 Docker support
+- ⚡ Fast performance with FastAPI
+- 🔒 Modern security practices
+- 🧪 Comprehensive test coverage
+- 🚀 Python 3.12+ and 3.13 support
 
 ## Basic Usage
 
@@ -244,13 +248,34 @@ I'm probably best known as "[pydanny](https://www.google.com/search?q=pydanny)",
 
 ## Installation and Running Example Sites
 
-### Option 1: Local Virtualenv
+### Option 1: Local Development Setup (Recommended)
 
-You can install this into a virtualenv using the pyproject.toml file:
+**Requirements:** Python 3.12+ (tested with Python 3.13.7)
+
+```bash
+# Clone the repository
+git clone https://github.com/pydanny/fastapi-blog.git
+cd fastapi-blog
+
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install uv for faster dependency management
+pip install uv
+
+# Install the project in development mode
+uv pip install -e '.[dev]'
+
+# Run the example blog
+make run
+```
+
+### Option 2: Install from PyPI
 
 ```bash
 pip install fastapi-blog
-make run
+# Then create your own FastAPI app using the examples in the documentation
 ```
 
 ### Option 2: Docker (Local Dockerfile)
@@ -271,6 +296,42 @@ docker run -d -p 8000:8000 ghcr.io/aroygreenfeld/fastapi-blog:latest
 ```
 
 This is if you just want to run the application without building it yourself.
+
+## Development
+
+### Running Tests and Quality Checks
+
+```bash
+# Run all tests with coverage
+make test
+
+# Run linting and formatting checks
+make lint
+
+# Auto-fix linting issues
+make format
+
+# Run type checking
+make mypy
+
+# Run all quality checks
+make all
+```
+
+### Project Structure
+
+```
+fastapi-blog/
+├── src/fastapi_blog/          # Main package
+│   ├── main.py               # Core FastAPI integration
+│   ├── router.py             # Blog routes and views  
+│   ├── helpers.py            # Utility functions
+│   └── templates/            # Jinja2 templates
+├── tests/                    # Test suite
+│   └── examples/             # Example configurations
+├── .github/workflows/        # CI/CD workflows
+└── pyproject.toml           # Project configuration
+```
 
 ## Releasing a new version
 

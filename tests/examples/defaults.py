@@ -1,6 +1,7 @@
-import fastapi_blog
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+
+import fastapi_blog
 
 
 app = FastAPI()
