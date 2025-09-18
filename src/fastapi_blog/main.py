@@ -24,7 +24,7 @@ def add_blog_to_fastapi(
     env = jinja2.Environment(
         loader=jinja2_loader,
         extensions=list(jinja2_extensions),
-        autoescape=jinja2.select_autoescape(['html', 'xml']),
+        autoescape=jinja2.select_autoescape(["html", "xml"]),
     )
     templates = Jinja2Templates(env=env)
 
