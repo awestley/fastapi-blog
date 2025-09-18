@@ -8,4 +8,4 @@ from .main import add_blog_to_fastapi
 from .router import get_blog_router
 
 
-__version__ = "0.6.0"
+__version__ = "0.7.0"

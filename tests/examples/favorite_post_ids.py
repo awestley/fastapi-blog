@@ -1,5 +1,6 @@
-import fastapi_blog
 from fastapi import FastAPI
+
+import fastapi_blog
 
 
 favorite_post_ids = {

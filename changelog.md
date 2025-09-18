@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.7.0 - 2024-09-18
+
+**Major Update: Modernized Dependencies and Development Environment**
+
+* Updated Python requirement to 3.12+ (added Python 3.13 support)
+* Updated all dependencies to latest versions:
+  - FastAPI: 0.109.2 → 0.115.0+
+  - Uvicorn: 0.27.1 → 0.35.0+
+  - Ruff: 0.2.2 → 0.8.0+
+  - MyPy: 1.8.0 → 1.13.0+
+  - Pytest: 8.0.1 → 8.3.0+
+  - Coverage: 7.4.1 → 7.6.0+
+* Modernized ruff configuration with latest linting rules
+* Added comprehensive GitHub Actions CI/CD workflow
+* Added security scanning with safety and bandit
+* Improved development tooling and code quality checks
+* Full compatibility with Python 3.13.7
+
+## 0.6.0 - 2023-03-24
+
 * Remove staticfiles and encourage self config. PR [#40](https://github.com/pydanny/fastapi-blog/pull/40) by [@pydanny](https://github.com/pydanny).
 * Posts with zero tags no longer generate errors. PR [#39](https://github.com/pydanny/fastapi-blog/pull/39) by [@pydanny](https://github.com/pydanny).
 

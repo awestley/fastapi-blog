@@ -1,7 +1,8 @@
-import fastapi_blog
 import jinja2
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+
+import fastapi_blog
 
 
 app = FastAPI()
