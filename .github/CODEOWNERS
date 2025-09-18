@@ -1,0 +1,15 @@
+# Global code owners - will be requested for review on all PRs
+* @awestley
+
+# Specific file ownership
+*.yml @awestley
+*.yaml @awestley
+pyproject.toml @awestley
+Dockerfile @awestley
+
+# Source code
+/src/ @awestley
+
+# Documentation
+README.md @awestley
+changelog.md @awestley
