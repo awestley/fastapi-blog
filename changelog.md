@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.7.0 - 2024-09-18
+## 0.7.0 - 2025-09-18
 
 **Major Update: Modernized Dependencies and Development Environment**
 
