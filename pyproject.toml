@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -16,14 +16,13 @@ maintainers = [
 ]
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
-  "Environment :: Web Environment",  
+  "Environment :: Web Environment",
   "Framework :: FastAPI",
-  "License :: Other/Proprietary License",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
-  "Topic :: Text Processing :: Markup :: Markdown",  
+  "Topic :: Text Processing :: Markup :: Markdown",
 ]
-license = {text = "FSL-1.0-Apache-2.0"}
+license-files = ["LICENSE.md"]
 dependencies = [
   "fastapi>=0.116.2",
   "jinja2>=3.1.6",
