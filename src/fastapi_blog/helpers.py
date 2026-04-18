@@ -7,7 +7,6 @@ import yaml
 from pymdownx import emoji  # type: ignore
 
 
-@functools.lru_cache
 def list_posts(published: bool = True, posts_dirname="posts") -> list[dict]:
     posts: list[dict] = []
     for post in pathlib.Path(".").glob(f"{posts_dirname}/*.md"):

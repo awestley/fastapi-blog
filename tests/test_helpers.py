@@ -13,6 +13,16 @@ def test_list_published_posts_failure():
     assert len(posts) == 0
 
 
+def test_list_posts_returns_fresh_list():
+    first = helpers.list_posts(posts_dirname="tests/examples/posts")
+    first.sort(key=lambda x: x["title"])
+    first[0]["mutated"] = True
+
+    second = helpers.list_posts(posts_dirname="tests/examples/posts")
+    assert second[0]["title"] == "No Tags"
+    assert "mutated" not in second[0]
+
+
 def test_load_content_from_markdown_file_success():
     import pathlib
 
