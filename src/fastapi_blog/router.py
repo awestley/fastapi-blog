@@ -43,9 +43,7 @@ def get_blog_router(
 
     @router.get("/posts")
     async def blog_posts(request: Request, response_class=HTMLResponse):
-        posts: list[dict] = helpers.list_posts()
-
-        posts.sort(key=lambda x: x["date"], reverse=True)
+        posts = helpers.list_posts()
 
         return templates.TemplateResponse(
             request=request, name="posts.html", context={"posts": posts}
@@ -53,7 +51,7 @@ def get_blog_router(
 
     @router.get("/tags")
     async def blog_tags(request: Request, response_class=HTMLResponse):
-        posts: list[dict] = helpers.list_posts()
+        posts = helpers.list_posts()
 
         unsorted_tags: dict = {}
         for post in posts:
@@ -75,8 +73,7 @@ def get_blog_router(
 
     @router.get("/tags/{tag_id}")
     async def blog_tag(tag_id: str, request: Request, response_class=HTMLResponse):
-        posts: list[dict] = helpers.list_posts()
-        posts = [x for x in filter(lambda x: tag_id in x.get("tags", []), posts)]
+        posts = [x for x in helpers.list_posts() if tag_id in x.get("tags", [])]
 
         return templates.TemplateResponse(
             request=request, name="tag.html", context={"tag_id": tag_id, "posts": posts}
