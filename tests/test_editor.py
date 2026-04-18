@@ -158,3 +158,49 @@ def test_blog_index_after_create(client):
     response = client.get("/blog/posts")
     assert response.status_code == 200
     assert "Hello World" in response.text
+
+
+def test_ui_list_empty(client):
+    response = client.get("/admin/editor/")
+    assert response.status_code == 200
+    assert "No posts yet" in response.text
+
+
+def test_ui_list_shows_posts(client):
+    client.post("/api/posts/create/hello-world", json=VALID_PAYLOAD)
+    response = client.get("/admin/editor/")
+    assert response.status_code == 200
+    assert "Hello World" in response.text
+    assert "hello-world" in response.text
+
+
+def test_ui_new_page(client):
+    response = client.get("/admin/editor/new")
+    assert response.status_code == 200
+    assert "easymde" in response.text.lower()
+    assert 'id="slug"' in response.text
+
+
+def test_ui_edit_page_prefills(client):
+    client.post("/api/posts/create/hello-world", json=VALID_PAYLOAD)
+    response = client.get("/admin/editor/hello-world")
+    assert response.status_code == 200
+    assert "Hello World" in response.text
+    assert "greeting" in response.text
+    assert "readonly" in response.text
+
+
+def test_ui_edit_404_for_missing(client):
+    response = client.get("/admin/editor/does-not-exist")
+    assert response.status_code == 404
+
+
+def test_ui_disabled(app_dir):
+    from fastapi import FastAPI
+
+    app = FastAPI()
+    app = add_blog_to_fastapi(app, prefix="blog")
+    app = add_editor_to_app(app, ui=False)
+    ui_client = TestClient(app)
+    response = ui_client.get("/admin/editor/")
+    assert response.status_code == 404
