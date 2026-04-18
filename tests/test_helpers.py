@@ -1,8 +1,17 @@
+import pytest
+
 from fastapi_blog import helpers
 
 
+@pytest.fixture(autouse=True)
+def _clear_cache():
+    helpers.list_posts.cache_clear()
+    yield
+    helpers.list_posts.cache_clear()
+
+
 def test_list_published_posts_success():
-    posts = helpers.list_posts(posts_dirname="tests/examples/posts")
+    posts = helpers.list_posts(posts_dirname="tests/examples/posts", strict=False)
     assert len(posts) == 19
     assert posts[0]["title"] == "No Tags"
     assert posts[-1]["title"] == "Code, Code, Code"
@@ -11,6 +20,12 @@ def test_list_published_posts_success():
 def test_list_published_posts_failure():
     posts = helpers.list_posts(posts_dirname="blarg")
     assert len(posts) == 0
+
+
+def test_strict_mode_skips_posts_with_extra_fields(caplog):
+    posts = helpers.list_posts(posts_dirname="tests/examples/posts", strict=True)
+    assert posts == ()
+    assert any("Skipping" in rec.message for rec in caplog.records)
 
 
 def test_load_content_from_markdown_file_success():

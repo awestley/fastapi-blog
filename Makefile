@@ -56,3 +56,6 @@ run_prefix_none:
 
 run_favorite_post_ids:
 	cd tests/examples && uvicorn favorite_post_ids:app --reload
+
+run_editor:
+	cd tests/examples && uvicorn editor:app --reload

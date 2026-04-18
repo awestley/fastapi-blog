@@ -1,40 +1,70 @@
 import functools
+import logging
 import pathlib
 from typing import Any
 
 import markdown as md  #  type: ignore[import-untyped]
+import nh3
 import yaml
+from pydantic import ValidationError
 from pymdownx import emoji  # type: ignore
+
+from .models import frontmatter_model
+
+
+logger = logging.getLogger(__name__)
 
 
 @functools.lru_cache
 def list_posts(
-    published: bool = True, posts_dirname: str = "posts"
+    published: bool = True,
+    posts_dirname: str = "posts",
+    strict: bool = True,
 ) -> tuple[dict, ...]:
+    Model = frontmatter_model(strict)
     posts: list[dict] = []
     for post in pathlib.Path(".").glob(f"{posts_dirname}/*.md"):
-        raw: str = post.read_text().split("---")[1]
-        data: dict = yaml.safe_load(raw)
-        data["slug"] = post.stem
-        posts.append(data)
+        try:
+            raw = post.read_text().split("---")[1]
+        except IndexError:
+            logger.warning("Skipping %s: missing YAML frontmatter", post)
+            continue
 
-    posts = [x for x in filter(lambda x: x["published"] is True, posts)]
+        try:
+            data = yaml.safe_load(raw)
+        except yaml.YAMLError as exc:
+            logger.warning("Skipping %s: invalid YAML (%s)", post, exc)
+            continue
+
+        if not isinstance(data, dict):
+            logger.warning("Skipping %s: frontmatter is not a mapping", post)
+            continue
+
+        try:
+            fm = Model(**data)
+        except ValidationError as exc:
+            logger.warning("Skipping %s: %s", post, exc)
+            continue
+
+        post_dict = fm.model_dump()
+        post_dict["slug"] = post.stem
+        posts.append(post_dict)
 
     posts.sort(key=lambda x: x["date"], reverse=True)
-    return tuple(x for x in filter(lambda x: x["published"] is published, posts))
+    return tuple(x for x in posts if x["published"] is published)
 
 
-def load_content_from_markdown_file(path: pathlib.Path) -> dict[str, str | dict]:
+def load_content_from_markdown_file(
+    path: pathlib.Path, sanitize: bool = False
+) -> dict[str, str | dict]:
     raw: str = path.read_text()
-    # Metadata is the first part of the file
-    page = {}
-    page["metadata"] = yaml.safe_load(raw.split("---")[1])
-
-    # Content is the second part of the file
-    content_list: list = raw.split("---")[2:]
-    page["markdown"] = "\n---\n".join(content_list)
-    page["html"] = markdown(page["markdown"])
-
+    metadata = yaml.safe_load(raw.split("---")[1])
+    markdown_text = "\n---\n".join(raw.split("---")[2:])
+    page: dict[str, str | dict] = {
+        "metadata": metadata,
+        "markdown": markdown_text,
+        "html": markdown(markdown_text, sanitize=sanitize),
+    }
     return page
 
 
@@ -83,6 +113,9 @@ extension_configs: dict[str, dict[str, Any]] = {
     },
 }
 
-markdown = functools.partial(
-    md.markdown, extensions=extensions, extension_configs=extension_configs
-)
+
+def markdown(text: str, sanitize: bool = False) -> str:
+    html = md.markdown(text, extensions=extensions, extension_configs=extension_configs)
+    if sanitize:
+        html = nh3.clean(html)
+    return html
