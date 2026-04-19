@@ -60,7 +60,8 @@ jobs:
     - name: Test Docker image
       if: github.event_name != 'pull_request'
       run: |
-        docker run --rm -d -p 8000:8000 --name fastapi-blog-test ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        IMAGE="${REGISTRY}/${IMAGE_NAME,,}:latest"
+        docker run --rm -d -p 8000:8000 --name fastapi-blog-test "$IMAGE"
         sleep 10
         curl -f http://localhost:8000 || exit 1
         docker stop fastapi-blog-test
