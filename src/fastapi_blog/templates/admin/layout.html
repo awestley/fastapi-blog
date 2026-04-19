@@ -4,9 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Editor{% endblock %} — fastapi-blog</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css">
     <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
     <style>
+        html { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #2c3e50; }
+        body { max-width: 52em; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+        h1, h2, h3 { line-height: 1.2; }
+        a { color: #1e88e5; }
+        code { font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.9em; }
+        button { font: inherit; padding: 0.4rem 0.8rem; cursor: pointer; }
+        input[type="text"], input[type="date"], textarea { font: inherit; padding: 0.4rem; border: 1px solid #ccc; border-radius: 3px; }
+
         header nav a { margin-right: 1rem; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 0.4rem 0.6rem; border-bottom: 1px solid #eee; text-align: left; }
@@ -20,15 +27,6 @@
         .form-row input[type="text"], .form-row input[type="date"] { width: 100%; }
         .error { color: #c62828; background: #ffebee; padding: 0.5rem; border-radius: 4px; white-space: pre-wrap; font-family: monospace; font-size: 0.85rem; }
         .hint { color: #888; font-size: 0.85rem; }
-
-        /* Undo sakura's `pre` and `code` styles inside the editor.
-           !important is needed because sakura and our sheet have equal origin/layer. */
-        .EasyMDEContainer .CodeMirror { background: #fff !important; color: #2c3e50 !important; }
-        .EasyMDEContainer .CodeMirror pre,
-        .EasyMDEContainer .CodeMirror code { background: transparent !important; padding: 0 !important; border: none !important; }
-        .EasyMDEContainer .editor-preview { color: #2c3e50 !important; background: #fff !important; }
-        /* Restore reasonable pre style inside the rendered preview pane */
-        .EasyMDEContainer .editor-preview pre { background: #f1f1f1; padding: 1em; }
     </style>
 </head>
 <body>
