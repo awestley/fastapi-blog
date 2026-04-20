@@ -1,8 +1,7 @@
 ---
     name: Contributing
     on:
-      push:
-        branches: [main]
+      workflow_dispatch:
     jobs:
       contrib-readme-job:
         runs-on: ubuntu-latest
